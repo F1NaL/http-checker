@@ -1,16 +1,15 @@
 package report
 
 import (
-	"html/template"
-	"fmt"
-	"encoding/json"
 	"bytes"
+	"encoding/json"
+	"fmt"
+	"html/template"
 	"io/ioutil"
 	"time"
 )
 
-
-func MakeReport(data interface{}, outputPath string)  {
+func MakeReport(data interface{}, outputPath string) {
 	tmpl := template.Must(template.ParseFiles("./app/report/report.html"))
 	jsondata, eee := json.Marshal(data)
 	tplData := ReportData{string(jsondata)}
@@ -22,7 +21,7 @@ func MakeReport(data interface{}, outputPath string)  {
 	if e != nil {
 		fmt.Println(e)
 	}
-	err := ioutil.WriteFile(outputPath + "report_" + time.Now().Format(time.RFC3339) + ".html", tpl.Bytes(), 0644)
+	err := ioutil.WriteFile(outputPath+"report_"+time.Now().Format(time.RFC3339)+".html", tpl.Bytes(), 0644)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -31,5 +30,3 @@ func MakeReport(data interface{}, outputPath string)  {
 type ReportData struct {
 	Reports string
 }
-
-

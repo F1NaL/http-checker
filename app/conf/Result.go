@@ -1,7 +1,7 @@
 package conf
 
 type Result struct {
-	Status bool
+	Status   bool
 	GotValue int
-	Task Task
+	Task     Task
 }

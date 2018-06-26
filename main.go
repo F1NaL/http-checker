@@ -2,16 +2,23 @@ package main
 
 import "flag"
 import (
-	"./app/settings"
 	"./app/conf"
+	"./app/settings"
 	"./app/worker"
 	"fmt"
-	"os"
 	"log"
+	"os"
 )
 
-func main()  {
-	fmt.Println("start");
+var (
+	version string
+	build   string
+	commit  string
+	docs    string
+)
+
+func main() {
+	fmt.Println("start")
 	settings := settings.Settings{}
 	flag.IntVar(&settings.ThreadCount, "tread", 10, "thread count")
 	flag.StringVar(&settings.ConfigPath, "config", "./config.json", "config path")
@@ -25,6 +32,27 @@ func main()  {
 		os.Exit(1)
 	}
 
+	printVersion()
+
 	config := conf.ReadConfig(settings.ConfigPath)
 	worker.NewWorker(config, settings)
+}
+
+//program build data
+func printVersion() {
+	fmt.Print(`
+ __          __      __                                __                  __                           
+/  |        /  |    /  |                              /  |                /  |                          
+$$ |____   _$$ |_  _$$ |_     ______          _______ $$ |____    ______  $$ |   __   ______    ______  
+$$      \ / $$   |/ $$   |   /      \        /       |$$      \  /      \ $$ |  /  | /      \  /      \ 
+$$$$$$$  |$$$$$$/ $$$$$$/   /$$$$$$  |      /$$$$$$$/ $$$$$$$  | $$$$$$  |$$ |_/$$/ /$$$$$$  |/$$$$$$  |
+$$ |  $$ |  $$ | __ $$ | __ $$ |  $$ |      $$ |      $$ |  $$ | /    $$ |$$   $$<  $$    $$ |$$ |  $$/ 
+$$ |  $$ |  $$ |/  |$$ |/  |$$ |__$$ |      $$ \_____ $$ |  $$ |/$$$$$$$ |$$$$$$  \ $$$$$$$$/ $$ |      
+$$ |  $$ |  $$  $$/ $$  $$/ $$    $$/       $$       |$$ |  $$ |$$    $$ |$$ | $$  |$$       |$$ |      
+$$/   $$/    $$$$/   $$$$/  $$$$$$$/         $$$$$$$/ $$/   $$/  $$$$$$$/ $$/   $$/  $$$$$$$/ $$/       
+                            $$ |                                                                        
+                            $$ |                                                                        
+                            $$/                                                                        
+`)
+	fmt.Printf("Version: %s\nBuild Time: %s\nGit Commit Hash: %s\nDocs: %s\n\n\n", version, build, commit, docs)
 }
