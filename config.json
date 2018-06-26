@@ -1,0 +1,12 @@
+{
+  "tasks": [
+    {
+      "url": "https://ya.ru",
+      "status": 200
+    },
+    {
+      "url": "https://mail.ru",
+      "status": 404
+    }
+  ]
+}

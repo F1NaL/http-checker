@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Report</title>
+
+    <!-- Required Stylesheets -->
+    <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css"/>
+    <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css"/>
+    <!-- Required scripts -->
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
+</head>
+<body>
+
+<div id="app">
+    <b-table hover :items="items"></b-table>
+</div>
+<script>
+    window._reports = JSON.parse({{.Reports}});
+    console.log(window._reports);
+    window.app = new Vue({
+        el: "#app",
+        data: {
+            list: window._reports,
+        },
+        computed: {
+            items: function () {
+                return this.list.map(function (item) {
+                    return {
+                        _rowVariant: item.Status ? 'success' : 'danger',
+                        URL: item.Task.url,
+                        Expect: item.Task.status,
+                        Got: item.GotValue,
+                    }
+                })
+            }
+        }
+    })
+</script>
+</body>
+</html>
