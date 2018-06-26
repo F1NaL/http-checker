@@ -16,7 +16,6 @@ before_install:
   - mkdir -p ${GOPATH}/bin
 
 install:
-  - go get -u github.com/F1NaL/$MYAPP
   - cd $GOPATH/src/github.com/F1NaL/$MYAPP
 
 script: echo "pass"
