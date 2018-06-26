@@ -1,10 +1,10 @@
 package conf
 
 import (
-	"io/ioutil"
-	"fmt"
-	"os"
 	"encoding/json"
+	"fmt"
+	"io/ioutil"
+	"os"
 )
 
 func ReadConfig(path string) Config {

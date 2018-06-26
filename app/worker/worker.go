@@ -2,19 +2,18 @@ package worker
 
 import (
 	"../conf"
-	"../settings"
 	"../report"
+	"../settings"
 	"fmt"
-	"sync"
 	"net/http"
+	"sync"
 )
 
 type Worker struct {
 	Task conf.Task
 }
 
-
-func NewWorker(config conf.Config, settings settings.Settings)  {
+func NewWorker(config conf.Config, settings settings.Settings) {
 	fmt.Println("settings", settings)
 	tasksCount := len(config.Tasks)
 
@@ -36,7 +35,7 @@ func NewWorker(config conf.Config, settings settings.Settings)  {
 	close(jobs)
 }
 
-func process(jobs <-chan conf.Task, results *[]conf.Result, wg *sync.WaitGroup, settings settings.Settings)  {
+func process(jobs <-chan conf.Task, results *[]conf.Result, wg *sync.WaitGroup, settings settings.Settings) {
 	for j := range jobs {
 		fmt.Println("run", j.Url)
 		*results = append(*results, checkTask(j, settings))
@@ -54,5 +53,5 @@ func checkTask(task conf.Task, settings settings.Settings) conf.Result {
 	transport := http.Transport{}
 	resp, _ := transport.RoundTrip(req)
 	result := resp.StatusCode == task.Status
-	return conf.Result{result,resp.StatusCode, task}
+	return conf.Result{result, resp.StatusCode, task}
 }
