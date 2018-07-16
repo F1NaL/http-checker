@@ -5,7 +5,7 @@
       "status": 200,
       "tests": [
         {
-          "title": "Проверяем заголовок",
+          "title": "Check title equal",
           "q": "title",
           "match": "eq",
           "a": "Яндекс"
@@ -13,20 +13,20 @@
       ]
     },
     {
-      "url": "https://mail.ru/",
+      "url": "https://www.google.com/",
       "status": 200,
       "tests": [
         {
-          "title": "Проверяем заголовок",
+          "title": "Check title equal",
           "q": "title",
           "match": "eq",
-          "a": "Mail.Ru: почта, поиск в интернете, новости, игры"
+          "a": "Google"
         },
         {
-          "title": "Проверяем описание",
-          "q": "description",
+          "title": "Check title contains",
+          "q": "title",
           "match": "contains",
-          "a": "Почта"
+          "a": "oog"
         }
       ]
     }
@@ -39,10 +39,6 @@
     {
       "title": "Mobile",
       "agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1"
-    },
-    {
-      "title": "Tablet",
-      "agent": "Mozilla/5.0 (iPad; CPU OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1"
     }
   ]
 }

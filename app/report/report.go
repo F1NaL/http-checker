@@ -11,7 +11,7 @@ import (
 
 func MakeReport(data interface{}, outputPath string) {
 	fmt.Println("report", data)
-	tmpl := template.Must(template.ParseFiles("./app/report/report.html"))
+	tmpl := template.Must(template.ParseFiles("github.com/F1NaL/http-checker/app/report/report.html"))
 	jsondata, eee := json.Marshal(data)
 	tplData := ReportData{string(jsondata)}
 	if eee != nil {

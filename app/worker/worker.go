@@ -1,9 +1,9 @@
 package worker
 
 import (
-	"../conf"
-	"../report"
-	"../settings"
+	"github.com/F1NaL/http-checker/app/conf"
+	"github.com/F1NaL/http-checker/app/report"
+	"github.com/F1NaL/http-checker/app/settings"
 	"fmt"
 	"net/http"
 	"sync"
@@ -16,7 +16,7 @@ type Worker struct {
 	Task conf.Task
 }
 
-func NewWorker(config conf.Config, settings settings.Settings) {
+func NewWorker(config conf.Config, settings settings.Settings) int {
 	fmt.Println("settings", settings)
 	tasksCount := len(config.Tasks)
 
@@ -34,9 +34,15 @@ func NewWorker(config conf.Config, settings settings.Settings) {
 		jobs <- task
 	}
 	wg.Wait()
-	fmt.Println("finish tasks")
 	report.MakeReport(results, settings.ReportPath)
 	close(jobs)
+	i := 0
+	for _, r := range results {
+		if !r.Status {
+			i++
+		}
+	}
+	return i
 }
 
 func process(jobs <-chan conf.Task, results *[]conf.Result, wg *sync.WaitGroup, settings settings.Settings, config conf.Config) {
@@ -94,6 +100,7 @@ func checkTest(document *goquery.Document, test conf.TaskTest) conf.TestResult {
 	text := document.Find(test.Q).Text()
 	result.GotValue = text
 	if test.Match == conf.TaskTestContains {
+		fmt.Println(conf.TaskTestContains, strings.Contains(text, test.A), text, test.A)
 		result.Status = strings.Contains(text, test.A)
 		return result
 	}
