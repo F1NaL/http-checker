@@ -18,11 +18,10 @@ var (
 )
 
 func main() {
-	fmt.Println("start")
 	settings := settings.Settings{}
 	flag.IntVar(&settings.ThreadCount, "tread", 10, "thread count")
-	flag.StringVar(&settings.ConfigPath, "config", "github.com/F1NaL/http-checker/config.json", "config path")
-	flag.StringVar(&settings.ReportPath, "output", "github.com/F1NaL/http-checker/reports/", "report path")
+	flag.StringVar(&settings.ConfigPath, "config", "./config.json", "config path")
+	flag.StringVar(&settings.ReportPath, "output", "./reports/", "report path")
 	flag.StringVar(&settings.Stage, "stage", "", "stage host if need")
 
 	flag.Parse()

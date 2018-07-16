@@ -17,7 +17,6 @@ type Worker struct {
 }
 
 func NewWorker(config conf.Config, settings settings.Settings) int {
-	fmt.Println("settings", settings)
 	tasksCount := len(config.Tasks)
 
 	jobs := make(chan conf.Task, tasksCount)
@@ -63,7 +62,6 @@ func checkTask(task conf.Task, settings settings.Settings, userAgent conf.UserAg
 	if len(settings.Stage) > 0 {
 		url = settings.Stage + task.Url
 	}
-	fmt.Println("checkTask", url, userAgent)
 	req, _ := http.NewRequest("GET", url, nil)
 	req.Header.Add("User-Agent", userAgent.Agent)
 	transport := http.Transport{}
@@ -71,7 +69,6 @@ func checkTask(task conf.Task, settings settings.Settings, userAgent conf.UserAg
 	if e != nil {
 		fmt.Println(e)
 	}
-	fmt.Println("finish tasks")
 	result := resp.StatusCode == task.Status
 	testsResult := make([]conf.TestResult, 0)
 	if len(task.Tests) > 0 && result {
@@ -100,7 +97,6 @@ func checkTest(document *goquery.Document, test conf.TaskTest) conf.TestResult {
 	text := document.Find(test.Q).Text()
 	result.GotValue = text
 	if test.Match == conf.TaskTestContains {
-		fmt.Println(conf.TaskTestContains, strings.Contains(text, test.A), text, test.A)
 		result.Status = strings.Contains(text, test.A)
 		return result
 	}

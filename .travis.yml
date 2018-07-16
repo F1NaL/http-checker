@@ -17,6 +17,7 @@ before_install:
 
 install:
   - cd $GOPATH/src/github.com/F1NaL/$MYAPP
+  - go install
 
 script: echo "pass"
 
