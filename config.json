@@ -2,11 +2,47 @@
   "tasks": [
     {
       "url": "https://ya.ru",
-      "status": 200
+      "status": 200,
+      "tests": [
+        {
+          "title": "Проверяем заголовок",
+          "q": "title",
+          "match": "eq",
+          "a": "Яндекс"
+        }
+      ]
     },
     {
-      "url": "https://mail.ru",
-      "status": 404
+      "url": "https://mail.ru/",
+      "status": 200,
+      "tests": [
+        {
+          "title": "Проверяем заголовок",
+          "q": "title",
+          "match": "eq",
+          "a": "Mail.Ru: почта, поиск в интернете, новости, игры"
+        },
+        {
+          "title": "Проверяем описание",
+          "q": "description",
+          "match": "contains",
+          "a": "Почта"
+        }
+      ]
+    }
+  ],
+  "userAgents" : [
+    {
+      "title" : "Desktop",
+      "agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36"
+    },
+    {
+      "title": "Mobile",
+      "agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1"
+    },
+    {
+      "title": "Tablet",
+      "agent": "Mozilla/5.0 (iPad; CPU OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1"
     }
   ]
 }
